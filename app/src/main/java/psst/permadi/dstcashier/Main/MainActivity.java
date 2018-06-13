@@ -1,7 +1,10 @@
 package psst.permadi.dstcashier.Main;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -14,9 +17,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import psst.permadi.dstcashier.R;
 import psst.permadi.dstcashier.Util.CustomAndroidGridViewAdapter;
@@ -27,41 +33,64 @@ public class MainActivity extends AppCompatActivity
 
     Toolbar toolbar;
     ListView trxList;
+    CollapsingToolbarLayout collapsingToolbarLayoutAndroid;
+    CoordinatorLayout rootLayoutAndroid;
+    GridView gridView;
+    Context context;
+    ArrayList arrayList;
 
-    public static String[] dataList = {
-            "Transaksi 1",
-            "Transaksi 2",
-            "Transaksi 3",
-            "Transaksi 4",
-            "Transaksi 5",
-            "Transaksi 6",
-            "Transaksi 7",
-            "Transaksi 8",
-            "Transaksi 9",
-            "Transaksi 10",
-            "Transaksi 11",
-            "Transaksi 12",
-            "Transaksi 13",
-            "Transaksi 14",
-            "Transaksi 15"
+    String[] fruits = new String[] {
+            "1 Cape Gooseberry",
+            "2 Capuli cherry",
+            "3 Cape Gooseberry",
+            "4 Capuli cherry",
+            "5 Cape Gooseberry",
+            "6 Capuli cherry",
+            "7 Cape Gooseberry",
+            "8 Capuli cherry",
+            "9 Cape Gooseberry",
+            "10 Capuli cherry",
+            "11 Cape Gooseberry",
+            "12 Capuli cherry",
+            "13 Cape Gooseberry",
+            "14 Capuli cherry",
+            "15 Cape Gooseberry",
+            "16 Capuli cherry",
+            "17 Cape Gooseberry",
+            "18 Capuli cherry",
+            "19 Cape Gooseberry",
+            "20 Capuli cherry",
+            "21 Cape Gooseberry",
+            "22 Capuli cherry",
+            "23 Cape Gooseberry",
+            "24 Capuli cherry"
     };
-    public static String[] tglList = {
-            "tgl 1",
-            "tgl 2",
-            "tgl 3",
-            "tgl 4",
-            "tgl 5",
-            "tgl 6",
-            "tgl 7",
-            "tgl 8",
-            "tgl 9",
-            "tgl 10",
-            "tgl 11",
-            "tgl 12",
-            "tgl 13",
-            "tgl 14",
-            "tgl 15"
+
+    public static String[] gridViewStrings = {
+            "Coffee",
+            "Non Coffee",
+            "Food",
+            "Green Bean",
+            "Rost Bean",
+            "Mix Item",
+            "Item",
+            "Item",
+            "Item",
+
     };
+    public static int[] gridViewImages = {
+            R.drawable.circle,
+            R.drawable.circle,
+            R.drawable.circle,
+            R.drawable.circle,
+            R.drawable.circle,
+            R.drawable.circle,
+            R.drawable.circle,
+            R.drawable.circle,
+            R.drawable.circle
+    };
+
+
     protected ArrayList<String> arrayStrings = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,14 +117,27 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        trxList = (ListView) findViewById(R.id.trxList);
-        CustomAndroidGridViewAdapter2 AdapterViewAndroid = new CustomAndroidGridViewAdapter2
-                (MainActivity.this, dataList, tglList);
+        trxList = (ListView) findViewById(R.id.listTrx);
+        final List<String> fruits_list = new ArrayList<String>(Arrays.asList(fruits));
+
+        // Create an ArrayAdapter from List
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
+                (this, android.R.layout.simple_list_item_1, fruits_list);
 
         // DataBind ListView with items from ArrayAdapter
-        trxList.setAdapter(AdapterViewAndroid);
+        trxList.setAdapter(arrayAdapter);
 
+        //gridView = (GridView) findViewById(R.id.grid);
+        //gridView.setAdapter(new CustomAndroidGridViewAdapter(this, gridViewStrings, gridViewImages));
 
+        //initInstances();
+
+    }
+
+    private void initInstances() {
+        rootLayoutAndroid = (CoordinatorLayout) findViewById(R.id.android_coordinator_layout);
+        collapsingToolbarLayoutAndroid = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_android_layout);
+        //collapsingToolbarLayoutAndroid.setTitle("Dashboard");
     }
 
     @Override
@@ -137,6 +179,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_stock) {
+            Intent intent = new Intent(getApplicationContext(), coba_Task.class);
+            startActivity(intent);
+
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 
